@@ -50,6 +50,8 @@ gem 'bootstrap', '~> 4.0.0.alpha3'
 # make posts likeable 
 gem 'acts_as_votable', '~> 0.10.0'
 
+# gliffy support
+gem "font-awesome-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

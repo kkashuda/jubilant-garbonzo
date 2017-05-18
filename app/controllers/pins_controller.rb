@@ -1,7 +1,6 @@
 class PinsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_pin, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_pin, only: [:show, :edit, :update, :destroy, :upvote]
   # GET /pins
   # GET /pins.json
   def index
@@ -62,6 +61,13 @@ class PinsController < ApplicationController
     end
   end
 
+    def upvote
+    @pin.upvote_by(current_user)
+    
+    redirect_to :back
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pin
@@ -72,4 +78,5 @@ class PinsController < ApplicationController
     def pin_params
       params.require(:pin).permit(:title, :description, :image)
     end
+
 end

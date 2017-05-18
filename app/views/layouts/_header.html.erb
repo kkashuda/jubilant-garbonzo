@@ -1,22 +1,13 @@
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
-  <ul class="nav navbar-nav">
+  <div class="nav navbar-nav">
     <% if user_signed_in? %>
-      <li class="nav-item">
-        <%= link_to "New Pin", new_pin_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
+        <%= link_to "Home", root_path, class: "nav-link" %>
+        <%= link_to 'New Pin', new_pin_path %>
         <%= link_to "Account", edit_user_registration_path, class: 'nav-link' %>
-      </li>
-      <li class="nav-item">
         <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link' %>
-      </li>   
     <% else %>
-        <li class="nav-item">
             <%= link_to "Sign Up", new_user_registration_path, class: 'nav-link' %> 
-        </li>
-        <li class="nav-item">
             <%= link_to "Sign In", new_user_session_path, class: 'nav-link' %>
-        </li>
     <% end %>
-  </ul>
+  </div>
 </nav>

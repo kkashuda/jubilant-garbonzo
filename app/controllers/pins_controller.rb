@@ -1,3 +1,4 @@
+require 'pry'
 class PinsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_pin, only: [:show, :edit, :update, :destroy, :upvote]
@@ -19,6 +20,10 @@ class PinsController < ApplicationController
 
   # GET /pins/1/edit
   def edit
+    @user = User.find_by(id: params[:id])
+    
+
+
   end
 
   # POST /pins

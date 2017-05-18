@@ -10,5 +10,12 @@
   <%= @pin.description %>
 </p>
 
-<%= link_to 'Edit', edit_pin_path(@pin) %> |
-<%= link_to 'Back', pins_path %>
+<% if user_signed_in? %>
+  <%= link_to pin_like_path(@pin), method: :put, class: "btn btn-secondary" do %>
+     <span class="glyphicon glyphicon-heart"></span>
+     <%= @pin.get_upvotes.size %>
+  <% end %>
+
+   <%= link_to "Edit", edit_pin_path, class: "btn btn-default" %>
+   <%= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary" %>
+<% end %>

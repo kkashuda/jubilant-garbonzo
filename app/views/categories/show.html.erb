@@ -1,10 +1,9 @@
-<% require 'pry' %>
 <p id="notice"><%= notice %></p>
 
 <section class="clearfix">
 		<div class="container">
 			<div class="section-left">
-				<h1 class="section-title">All Pins</h1>
+				<h1 class="section-title"><%=@category.name%> Pins</h1>
         <h5> 
           <% @categories.each do |c| %> 
         | <%= link_to "#{c.name}", c %> |
@@ -36,4 +35,3 @@
 </table>
 
 <br>
-

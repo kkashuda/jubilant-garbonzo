@@ -6,6 +6,7 @@ class PinsController < ApplicationController
   # GET /pins.json
   def index
     @pins = Pin.all
+    @categories = Category.all
   end
 
   # GET /pins/1
@@ -22,8 +23,6 @@ class PinsController < ApplicationController
   # GET /pins/1/edit
   def edit
     @user = User.find_by(id: params[:id])
-    
-
 
   end
 

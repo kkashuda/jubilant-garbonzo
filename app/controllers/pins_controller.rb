@@ -15,6 +15,7 @@ class PinsController < ApplicationController
 
   # GET /pins/new
   def new
+    @category_options = Category.all.map{|c| [c.name, c.id]}
     @pin = Pin.new
   end
 
@@ -33,6 +34,9 @@ class PinsController < ApplicationController
 
     respond_to do |format|
       if @pin.save
+        @pin.category_id = params[:category].to_i
+        @pin.user_id = current_user.id
+        @pin.save
         format.html { redirect_to @pin, notice: 'Pin was successfully created.' }
         format.json { render :show, status: :created, location: @pin }
       else
@@ -81,7 +85,7 @@ class PinsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pin_params
-      params.require(:pin).permit(:title, :description, :image)
+      params.require(:pin).permit(:title, :description, :image, :category)
     end
 
 end

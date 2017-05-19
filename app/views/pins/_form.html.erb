@@ -14,21 +14,25 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+    <%= f.text_field :title, :value => "Title for your pin.." %>
   </div>
 
   <div class='field'>
-    <%= f.label :image %> 
+    <h5> <%= f.label "Choose an image" %> </h5>
     <%= f.file_field :image %>
   </div>
 
-  <div class="actions">
+   <div class="field">
+    <h5> <%= f.label :description%> </h5>
+    <%= f.text_area :description, :value => "Tell us more about this pin.." %>
+  </div>
+
+  <div class='field'>
+    <h5> Pick a category to add your pin to! </h5>
+    <%= render 'categories/categories' %>
+  </div>
+
+  <div class="actions field">
     <%= f.submit %>
   </div>
 

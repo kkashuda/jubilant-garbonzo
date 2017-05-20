@@ -27,6 +27,12 @@
     <%= f.text_area :description, :value => "Tell us more about this pin.." %>
   </div>
 
+  <div class="field">
+    <h5> <%= f.label :link%> </h5>
+    <%= f.text_field :link %>
+  </div>
+
+
   <div class='field'>
     <h5> Pick a category to add your pin to! </h5>
     <%= render 'categories/categories' %>

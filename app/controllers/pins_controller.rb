@@ -12,6 +12,7 @@ class PinsController < ApplicationController
   # GET /pins/1
   # GET /pins/1.json
   def show
+    @user = current_user
   end
 
   # GET /pins/new
@@ -84,7 +85,7 @@ class PinsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pin_params
-      params.require(:pin).permit(:title, :description, :image, :category)
+      params.require(:pin).permit(:title, :description, :image, :category, :link)
     end
 
 end

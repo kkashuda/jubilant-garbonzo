@@ -17,6 +17,7 @@ class PinsController < ApplicationController
 
   # GET /pins/new
   def new
+    @user = current_user
     @pin = Pin.new
     @category_options = Category.all.map{|c| [c.name, c.id]}
 
@@ -25,7 +26,7 @@ class PinsController < ApplicationController
   # GET /pins/1/edit
   def edit
     @user = User.find_by(id: params[:id])
-        @category_options = Category.all.map{|c| [c.name, c.id]}
+    @category_options = Category.all.map{|c| [c.name, c.id]}
 
   end
 
@@ -75,9 +76,8 @@ class PinsController < ApplicationController
     end
   end
 
-    def upvote
+  def upvote
     @pin.upvote_by(current_user)
-    
     redirect_to :back
   end
 

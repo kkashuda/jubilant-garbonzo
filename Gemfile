@@ -53,6 +53,9 @@ gem 'acts_as_votable', '~> 0.10.0'
 # gliffy support
 gem "font-awesome-rails"
 
+# facebook login 
+gem 'omniauth-facebook'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

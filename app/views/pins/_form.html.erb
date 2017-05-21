@@ -1,4 +1,3 @@
-<% require 'pry' %>
 <%= form_for [current_user, @pin], html: { multipart: true } do |f| %>
   <% if @pin.errors.any? %>
     <div id="error_explanation">
@@ -38,12 +37,12 @@
 
 
   <div class='field'>
-        <h5> Create a new category to add your pin to! </h5> 
-    <% binding.pry %> 
-
+    <h5> Create a new category to add your pin to! </h5> 
+    
     <%= f.fields_for :category_attributes do |category|%> 
-    <%= category.text_field :name %> 
+      <%= category.text_field :name %> 
     <% end %> 
+
     <h4> Or </h4> 
     <h5> Pick a category to add your pin to! </h5>
     <%= render 'categories/categories' %>

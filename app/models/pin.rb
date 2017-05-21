@@ -1,4 +1,3 @@
-require 'pry'
 class Pin < ApplicationRecord
   belongs_to :user 
   belongs_to :category
@@ -17,7 +16,6 @@ class Pin < ApplicationRecord
 
 
     def category_attributes=(category)
-      binding.pry
       self.category = Category.find_or_create_by(name: category["name"])
       self.category.update(category)
   end

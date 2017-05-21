@@ -1,4 +1,3 @@
-require 'pry'
 class PinsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_pin, only: [:show, :edit, :update, :destroy, :upvote]
@@ -37,10 +36,9 @@ class PinsController < ApplicationController
         if !@pin.category[:name].blank?
           @pin.category_id = @pin.category.id 
         else 
-          binding.pry
           @pin.category_id = params[:category].to_i
         end 
-        
+      
         @pin.user_id = current_user.id
         @pin.save
         format.html { redirect_to @pin, notice: 'Pin was successfully created.' }
@@ -57,6 +55,9 @@ class PinsController < ApplicationController
   def update
     respond_to do |format|
       if @pin.update(pin_params)
+        @pin.category_id = @pin.category.id unless @pin.category.id == nil 
+        @pin.category_id = params[:category].to_i if @pin.category.id == nil
+        @pin.save 
         format.html { redirect_to @pin, notice: 'Pin was successfully updated.' }
         format.json { render :show, status: :ok, location: @pin }
       else

@@ -1,20 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div id="show"> 
-  <% if user_signed_in? %>
-    <%= link_to like_pin_path(@pin), method: :put, class: "btn btn-secondary" do %>
-      <span class="glyphicon glyphicon-heart"></span>
-      <i class="fa fa-heart"></i>
-      <%= @pin.get_upvotes.size %>
-    <% end %> 
-    
-    </br></br>
-
-    <% if current_user.pins.include? @pin%> 
-      <%= link_to "Edit", edit_user_pin_path(current_user), class: "btn btn-default" %>
-      <%= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary" %>
-    <% end %> 
-  <% end %>
+  <%= render partial: 'logged_in' %> 
 
   <div id="title">
     <%= @pin.title %>
@@ -27,7 +14,7 @@
 
      </br> 
 
-      <%= @pin.description %>
+    <%= @pin.description %>
   </div>
 
   <div class="container">

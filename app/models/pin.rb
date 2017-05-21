@@ -19,5 +19,6 @@ class Pin < ApplicationRecord
       self.category = Category.find_or_create_by(name: category["name"])
       self.category.update(category)
   end
+  
 
 end

@@ -58,6 +58,7 @@ class PinsController < ApplicationController
         @pin.category_id = @pin.category.id unless @pin.category.id == nil 
         @pin.category_id = params[:category].to_i if @pin.category.id == nil
         @pin.save 
+        
         format.html { redirect_to @pin, notice: 'Pin was successfully updated.' }
         format.json { render :show, status: :ok, location: @pin }
       else

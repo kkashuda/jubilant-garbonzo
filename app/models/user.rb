@@ -2,6 +2,9 @@ class User < ApplicationRecord
   has_many :users
   has_many :pins 
   has_many :categories, through: :pins 
+
+  validates :email, uniqueness: true, on: :create
+
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

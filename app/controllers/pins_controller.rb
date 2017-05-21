@@ -17,13 +17,15 @@ class PinsController < ApplicationController
 
   # GET /pins/new
   def new
-    @category_options = Category.all.map{|c| [c.name, c.id]}
     @pin = Pin.new
+    @category_options = Category.all.map{|c| [c.name, c.id]}
+
   end
 
   # GET /pins/1/edit
   def edit
     @user = User.find_by(id: params[:id])
+        @category_options = Category.all.map{|c| [c.name, c.id]}
 
   end
 
@@ -33,13 +35,14 @@ class PinsController < ApplicationController
     @pin = Pin.new(pin_params)
 
     respond_to do |format|
-      if @pin.save
+      if @pin.valid?
         @pin.category_id = params[:category].to_i
         @pin.user_id = current_user.id
         @pin.save
         format.html { redirect_to @pin, notice: 'Pin was successfully created.' }
         format.json { render :show, status: :created, location: @pin }
       else
+        @category_options = Category.all.map{|c| [c.name, c.id]}
         format.html { render :new }
         format.json { render json: @pin.errors, status: :unprocessable_entity }
       end
@@ -49,6 +52,8 @@ class PinsController < ApplicationController
   # PATCH/PUT /pins/1
   # PATCH/PUT /pins/1.json
   def update
+    @category_options = Category.all.map{|c| [c.name, c.id]}
+
     respond_to do |format|
       if @pin.update(pin_params)
         format.html { redirect_to @pin, notice: 'Pin was successfully updated.' }

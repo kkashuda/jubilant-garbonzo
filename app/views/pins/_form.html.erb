@@ -14,7 +14,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.text_field :title, :value => "Title for your pin.." %>
+    <h5> <%= f.label "Title for your pin" %></h5> 
+    <%= f.text_field :title %>
   </div>
 
   <div class='field'>
@@ -23,8 +24,8 @@
   </div>
 
    <div class="field">
-    <h5> <%= f.label :description%> </h5>
-    <%= f.text_area :description, :value => "Tell us more about this pin.." %>
+    <h5> <%= f.label "Description"%> </h5>
+    <%= f.text_area :description %>
   </div>
 
   <div class="field">

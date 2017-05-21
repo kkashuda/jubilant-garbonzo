@@ -21,12 +21,20 @@
 </div> 
 
 <div id="descrip">
-  <%= @pin.description %>
+    <% if @pin.link%>
+      <%= link_to "#{@pin.link}", "#{@pin.link}" %>
+      <%end %> <br> 
+    <%= @pin.description %>
 </div>
 
-<% if @pin.link%>
-  <%= link_to @pin.link %> 
-<%end %> 
+
+<div class="container">
+  <div class="image">
+   <%= link_to (image_tag @pin.image.url), @pin %>
+  </div> 
+</div>
+
+
 
 
 </div>

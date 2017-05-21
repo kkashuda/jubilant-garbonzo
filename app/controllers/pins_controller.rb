@@ -2,6 +2,7 @@ require 'pry'
 class PinsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_pin, only: [:show, :edit, :update, :destroy, :upvote]
+  before_action :set_categories, only: [:edit, :new, :create, :update]
   # GET /pins
   # GET /pins.json
   def index
@@ -19,15 +20,11 @@ class PinsController < ApplicationController
   def new
     @user = current_user
     @pin = Pin.new
-    @category_options = Category.all.map{|c| [c.name, c.id]}
-
   end
 
   # GET /pins/1/edit
   def edit
     @user = User.find_by(id: params[:id])
-    @category_options = Category.all.map{|c| [c.name, c.id]}
-
   end
 
   # POST /pins
@@ -43,7 +40,6 @@ class PinsController < ApplicationController
         format.html { redirect_to @pin, notice: 'Pin was successfully created.' }
         format.json { render :show, status: :created, location: @pin }
       else
-        @category_options = Category.all.map{|c| [c.name, c.id]}
         format.html { render :new }
         format.json { render json: @pin.errors, status: :unprocessable_entity }
       end
@@ -53,8 +49,6 @@ class PinsController < ApplicationController
   # PATCH/PUT /pins/1
   # PATCH/PUT /pins/1.json
   def update
-    @category_options = Category.all.map{|c| [c.name, c.id]}
-
     respond_to do |format|
       if @pin.update(pin_params)
         format.html { redirect_to @pin, notice: 'Pin was successfully updated.' }
@@ -87,6 +81,12 @@ class PinsController < ApplicationController
     def set_pin
       @pin = Pin.find(params[:id])
     end
+
+    def set_categories 
+      binding.pry
+      @category_options = Category.options 
+    end 
+    
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pin_params

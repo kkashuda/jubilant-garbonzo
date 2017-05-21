@@ -1,14 +1,16 @@
-
-
 <%= form_for [@user, @pin], html: { multipart: true } do |f| %>
   <% if pin.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(pin.errors.count, "error") %> prohibited this pin from being saved:</h2>
-
+      <h2> 
+        <%= pluralize(pin.errors.count, "error") %> prohibited this pin from being saved: 
+      </h2>
+      
       <ul>
-      <% pin.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% pin.errors.full_messages.each do |message| %>
+          <li> 
+            <%= message %> 
+          </li>
+        <% end %>
       </ul>
     </div>
   <% end %>

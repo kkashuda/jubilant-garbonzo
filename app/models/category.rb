@@ -4,4 +4,9 @@ class Category < ApplicationRecord
 
   validates :name, length: {minimum: 2}
   validates :name, uniqueness: true 
+
+  def self.options 
+    self.all.map{ |c| [c.name, c.id] }
+  end 
+
 end

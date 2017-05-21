@@ -1,40 +1,38 @@
 <p id="notice"><%= notice %></p>
 
 <div id="show"> 
+  <% if user_signed_in? %>
+    <%= link_to like_pin_path(@pin), method: :put, class: "btn btn-secondary" do %>
+      <span class="glyphicon glyphicon-heart"></span>
+      <i class="fa fa-heart"></i>
+      <%= @pin.get_upvotes.size %>
+    <% end %> 
+    
+    </br></br>
 
-<% if user_signed_in? %>
-  <%= link_to like_pin_path(@pin), method: :put, class: "btn btn-secondary" do %>
-    <span class="glyphicon glyphicon-heart"></span>
-    <i class="fa fa-heart"></i>
-		<%= @pin.get_upvotes.size %>
+    <% if current_user.pins.include? @pin%> 
+      <%= link_to "Edit", edit_user_pin_path(current_user), class: "btn btn-default" %>
+      <%= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary" %>
+    <% end %> 
   <% end %>
-  </br> 
-  </br>
 
-  <% if current_user.pins.include? @pin%> 
-    <%= link_to "Edit", edit_user_pin_path(current_user), class: "btn btn-default" %>
-    <%= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary" %>
-  <% end %> 
-<% end %>
-<div id="title">
-  <%= @pin.title %>
-</div> 
+  <div id="title">
+    <%= @pin.title %>
+  </div> 
 
-<div id="descrip">
+  <div id="descrip">
     <% if @pin.link%>
       <%= link_to "#{@pin.link}", "#{@pin.link}" %>
-      <%end %> <br> 
-    <%= @pin.description %>
-</div>
+    <% end %> 
 
+     </br> 
 
-<div class="container">
-  <div class="image">
-   <%= link_to (image_tag @pin.image.url), @pin %>
-  </div> 
-</div>
+      <%= @pin.description %>
+  </div>
 
-
-
-
+  <div class="container">
+    <div class="image">
+      <%= link_to (image_tag @pin.image.url), @pin %>
+    </div> 
+  </div>
 </div>

@@ -1,2 +1,2 @@
-<%= render 'form', pin: @pin %>
+<%= render 'form', locals: {pin: @pin, user: current_user} %>
 <button> <%= link_to 'Back', pins_path %> </button>

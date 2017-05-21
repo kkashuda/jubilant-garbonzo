@@ -1,7 +1,7 @@
 <h1>Editing Pin</h1>
 
 <% if current_user %> 
-  <%= render 'form', pin: @pin %>
+  <%= render 'form', locals: {pin: @pin, user: current_user} %>
 <% end %> 
 
 <%= link_to 'Show', @pin %> | <%= link_to 'Back', pins_path %>

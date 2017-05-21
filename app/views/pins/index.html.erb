@@ -5,7 +5,7 @@
 			<div class="section-left">
 				<h1 class="section-title">All Pins</h1>
         <h5> 
-          <%= render partial: 'categories/list_categories'%>
+          <%= render partial: 'categories/list_categories', locals: {categories: @categories} %>
         </h5>
 			</div>
 		</div>
@@ -17,7 +17,7 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-    <%= render partial: 'all_pins' %>
+    <%= render partial: 'all_pins', locals: {pins: @pins} %>
 </table>
 
 <br>

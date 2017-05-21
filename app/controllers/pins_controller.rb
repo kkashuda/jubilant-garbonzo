@@ -30,11 +30,17 @@ class PinsController < ApplicationController
   # POST /pins
   # POST /pins.json
   def create
+    
     @pin = Pin.new(pin_params)
-
     respond_to do |format|
       if @pin.valid?
-        @pin.category_id = params[:category].to_i
+        if !@pin.category[:name].blank?
+          @pin.category_id = @pin.category.id 
+        else 
+          binding.pry
+          @pin.category_id = params[:category].to_i
+        end 
+        
         @pin.user_id = current_user.id
         @pin.save
         format.html { redirect_to @pin, notice: 'Pin was successfully created.' }
@@ -83,14 +89,13 @@ class PinsController < ApplicationController
     end
 
     def set_categories 
-      binding.pry
       @category_options = Category.options 
     end 
     
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pin_params
-      params.require(:pin).permit(:title, :description, :image, :category, :link)
+      params.require(:pin).permit(:title, :description, :image, :category, :link, category_attributes: [:name])
     end
 
 end

@@ -1,12 +1,13 @@
-<%= form_for [@user, @pin], html: { multipart: true } do |f| %>
-  <% if pin.errors.any? %>
+<% require 'pry' %>
+<%= form_for [current_user, @pin], html: { multipart: true } do |f| %>
+  <% if @pin.errors.any? %>
     <div id="error_explanation">
       <h2> 
-        <%= pluralize(pin.errors.count, "error") %> prohibited this pin from being saved: 
+        <%= pluralize(@pin.errors.count, "error") %> prohibited this pin from being saved: 
       </h2>
-      
+
       <ul>
-        <% pin.errors.full_messages.each do |message| %>
+        <% @pin.errors.full_messages.each do |message| %>
           <li> 
             <%= message %> 
           </li>
@@ -37,6 +38,13 @@
 
 
   <div class='field'>
+        <h5> Create a new category to add your pin to! </h5> 
+    <% binding.pry %> 
+
+    <%= f.fields_for :category_attributes do |category|%> 
+    <%= category.text_field :name %> 
+    <% end %> 
+    <h4> Or </h4> 
     <h5> Pick a category to add your pin to! </h5>
     <%= render 'categories/categories' %>
   </div>

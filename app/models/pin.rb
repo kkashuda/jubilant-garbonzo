@@ -1,4 +1,3 @@
-require 'pry'
 class Pin < ApplicationRecord
   belongs_to :user 
   belongs_to :category
@@ -12,8 +11,6 @@ class Pin < ApplicationRecord
   has_attached_file :image, :styles => { :medium => "300x300>" }
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   validates :image, presence: true 
-
-  attr_accessor :category 
 
   def category_attributes=(category)
     self.category = Category.find_or_create_by(name: category["name"])

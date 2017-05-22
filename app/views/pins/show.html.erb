@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
-
 <div id="show"> 
   <%= render partial: 'logged_in', locals: {pin: @pin} %> 
 
   <div id="title">
+    <p> <%= @total %> </p> 
+
     <%= @pin.title %>
   </div> 
 

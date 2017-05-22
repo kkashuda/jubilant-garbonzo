@@ -1,3 +1,4 @@
+require 'pry'
 class Pin < ApplicationRecord
   belongs_to :user 
   belongs_to :category
@@ -14,11 +15,13 @@ class Pin < ApplicationRecord
 
   attr_accessor :category 
 
-
-    def category_attributes=(category)
-      self.category = Category.find_or_create_by(name: category["name"])
-      self.category.update(category)
+  def category_attributes=(category)
+    self.category = Category.find_or_create_by(name: category["name"])
+    self.category.update(category)
   end
-  
 
+  def self.total(user)
+    user.pins.length
+  end 
+  
 end

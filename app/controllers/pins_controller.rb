@@ -13,9 +13,10 @@ class PinsController < ApplicationController
   # GET /pins/1
   # GET /pins/1.json
   def show
-    binding.pry
     @user = current_user
-    @total = current_user.pins.total(current_user) 
+    if user_signed_in? 
+      @total = current_user.pins.total(current_user) 
+    end  
   end
 
   # GET /pins/new

@@ -13,10 +13,11 @@ class PinsController < ApplicationController
   # GET /pins/1
   # GET /pins/1.json
   def show
-    @user = current_user
-    if user_signed_in? 
-      @total = current_user.pins.total(current_user) 
-    end  
+    @pin = Pin.find(params[:id])
+    respond_to do |f|
+      f.html {render :show}
+      f.json {render json: @pin}
+      end    
   end
 
   # GET /pins/new

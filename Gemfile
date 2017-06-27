@@ -59,6 +59,18 @@ gem "font-awesome-rails"
 # facebook login 
 gem 'omniauth-facebook'
 
+# railties dependency
+gem 'actionpack', '5.0.3'
+
+# bootstrap modal dependency
+gem 'railties', '5.0.3'
+
+# modal support
+group :assets do
+ gem 'bootstrap-modal-rails', '~> 2.2', '>= 2.2.5'
+end
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

@@ -1,6 +1,7 @@
 class Pin < ApplicationRecord
   belongs_to :user 
   belongs_to :category
+  has_many :comments
   acts_as_votable
 
   validates :title, length: { minimum: 5 }

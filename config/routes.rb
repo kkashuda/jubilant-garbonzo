@@ -6,11 +6,12 @@ Rails.application.routes.draw do
 
   resources :users do 
     resources :pins 
-    
   end 
   
   resources :pins
   root to: "pins#index"
+
+  resources :comments
 
   resources :categories
 

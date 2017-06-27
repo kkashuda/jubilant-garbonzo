@@ -15,5 +15,5 @@
 //= require masonry/jquery.masonry
 //= require turbolinks
 //= require_tree .
-//= require jquery.ui.all
+//= require jquery.ui
 //= require jquery.modal

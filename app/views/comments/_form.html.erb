@@ -1,14 +1,12 @@
-<% require 'pry' %>
-<% binding.pry %>
-
 <%= form_for [@pin, @comment] do |f| %>
 	<div class='field'> 
 		<h5> <%= f.label "Title for your comment" %></h5> 
-    
+			<%= f.text_field :title %> 
 	</div>
 
 	<div class='field'>
 		<h5><%= f.label "Leave a comment here" %></h5>
+			<%= f.text_area :content %> 
 	</div>
 
 	<div class='action field'>

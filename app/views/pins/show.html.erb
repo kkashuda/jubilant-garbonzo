@@ -24,8 +24,10 @@
 
   </div><br><br>
 <div> <br><br><br><br><br><br>
+  <% if !current_user.nil? %> 
   <center><p> ghhghgh </p>
   <%= render :partial => "comments/form", :locals => {:comment => Comment.new, :pin => @pin} %> </center>
+  <% end %>
 
 
 </div>

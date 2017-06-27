@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
+
   
 
   resources :users do 
@@ -11,11 +12,11 @@ Rails.application.routes.draw do
   resources :pins
   root to: "pins#index"
 
-  resources :comments
 
   resources :categories
 
   resources :pins do
+    resources :comments
     member do
       put 'like', to: 'pins#upvote'
     end

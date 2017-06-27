@@ -4,7 +4,7 @@ class PinsController < ApplicationController
   before_action :set_pin, only: [:show, :edit, :update, :destroy, :upvote]
   before_action :set_categories, only: [:edit, :new, :create, :update]
   # GET /pins
-  # GET /pins.json
+  # GET /pins.json  
   def index
     @pins = Pin.all
     @categories = Category.all
@@ -14,11 +14,16 @@ class PinsController < ApplicationController
   # GET /pins/1.json
   def show
     @pin = Pin.find(params[:id])
+    
+    @comment = Comment.new
+    @comment.pin_id = @pin.id
+
     respond_to do |f|
       f.html {render :show}
       f.json {render json: @pin}
       end    
   end
+
 
   # GET /pins/new
   def new

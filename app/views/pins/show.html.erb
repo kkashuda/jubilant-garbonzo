@@ -20,5 +20,12 @@
     <div class="image">
       <%= link_to (image_tag @pin.image.url), @pin %>
     </div> 
-  </div>
+</div>
+
+  </div><br><br>
+<div> <br><br><br><br><br><br>
+  <center><p> ghhghgh </p>
+  <%= render :partial => "comments/form", :locals => {:comment => Comment.new, :pin => @pin} %> </center>
+
+
 </div>

@@ -42,7 +42,8 @@
     margin-right: auto ;
     border-left: 2px solid black;
     border-right: 2px solid black;
-    padding: 0px 20px;
+    padding: 20px 20px;
+    display: block;
  }
 
  #title {
@@ -183,5 +184,13 @@ button {
     width: 300px;
     height: 220px;
 }
+
+.uniqueClass {
+  top:50%;
+  background: rgb(205,205,205);
+  outline: none;
+}
+
+
 
 

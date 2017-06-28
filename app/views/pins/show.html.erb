@@ -50,7 +50,7 @@
   <% end %>
 </div>
 
-<%= link_to "Create Comment", new_pin_comment_path(:pin_id => @pin.id), "data-toggle" => "modal", 'data-target' => '.uniqueClass'  %>
+<%= link_to "Create Comment", new_pin_comment_path(:pin_id => @pin.id), "data-toggle" => "modal", 'data-target' => '.uniqueClass', :remote => true  %>
 
 
 <script type="text/javascript" charset="utf-8">

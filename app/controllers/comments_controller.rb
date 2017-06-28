@@ -18,17 +18,13 @@ end
   end 
 
   def create
-  	@comment = Comment.new 
+  	@comment = Comment.create(:title => params[:comment][:title], :content => params[:comment][:content])
   	@comment.pin_id = params[:pin_id]
-  	respond_to do |format|
   	if @comment.save 
-  		format.html {redirect_to pin_path(params[:pin_id]), notice: 'Comment was successfully created.'}
-  		format.json {render action :show, status: :created, location: @comment}
+  		render json: @comment, status: 201
   	else 
-  		format.html {render action: 'new'}
-  		format.json {render json: @comment.errors, status: :unprocessable_entity}
+  		render json: @comment.errors, status: :unprocessable_entity
   	end 
-  end
 end  
 
 

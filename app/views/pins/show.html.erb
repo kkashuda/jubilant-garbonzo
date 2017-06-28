@@ -19,13 +19,14 @@
 </div><br><br><br><br><br><br>
 
 <div class= "container">
-   <center> <%= link_to "Create Comment", new_pin_comment_path(:pin_id => @pin.id), "data-toggle" => "modal", 'data-target' => '.uniqueClass', :remote => true  %> </center>
   <% if !current_user.nil? %>
+    <%= render partial: 'comments/form', locals: {pin: @pin} %>
+    <% end %>
   <center>
   </div>
 
 
-  <div id="commentModal">
+ <%# <div id="commentModal">
     <div class="modal hide fade">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -40,22 +41,39 @@
       </div>
     </div>
   </div>
-  </center>
-  <% end %>
-</div>
+  </center> %> 
+  <%#  <% end %> 
+<%# </div>  %> 
+
 <br><br><br><br><br>
 <div>
-<script type="text/javascript" charset="utf-8">
-$(".uniqueClass").html('<%= j render "comments/form" %>')
-</script>
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
     $('form').submit(function(event) {
-      event.preventDefault();
+   event.preventDefault();
+
+      debugger 
+             $.ajax({
+           url: $(location).attr('url');,
+           type:"POST",
+           data:
+           {
+            'title': $('#title').val(),
+            'description': $('#content').val(),
+           }
+           })
+
     });
   });
 
 </script>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+
+
+
+</script>
+
 

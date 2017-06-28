@@ -9,6 +9,14 @@ def index
 
 end 
 
+def show 
+  @comment = Comment.find(params[:id])
+  respond_to do |format|
+    format.html {render :show}
+    format.json {render json: @comment }
+  end 
+end 
+
   def new
   	@user = current_user 
   	@comment = Comment.new 

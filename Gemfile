@@ -51,9 +51,6 @@ gem 'masonry-rails'
 # bootstrap gem 
 gem 'bootstrap', '~> 4.0.0.alpha3'
 
-gem 'bootstrap-sass'
-
-
 # make posts likeable 
 gem 'acts_as_votable', '~> 0.10.0'
 
@@ -63,15 +60,6 @@ gem "font-awesome-rails"
 # facebook login 
 gem 'omniauth-facebook'
 
-# railties dependency
-gem 'actionpack', '5.0.3'
-
-# bootstrap modal dependency
-gem 'railties', '5.0.3'
-
-# modal support
-
- gem 'bootstrap-modal-rails', '~> 2.2', '>= 2.2.5'
 
 
 

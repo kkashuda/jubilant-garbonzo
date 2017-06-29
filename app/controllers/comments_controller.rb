@@ -24,7 +24,7 @@ def new
   @comment = Comment.new 
   respond_to do |format| 
   	format.html #new.html.erb
-    format.json { render json: @product}
+    format.json { render json: @comment}
   end  
 end 
 

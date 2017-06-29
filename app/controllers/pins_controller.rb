@@ -11,7 +11,6 @@ class PinsController < ApplicationController
   end
 
   # GET /pins/1
-  # GET /pins/1.json
   def show
     @pin = Pin.find(params[:id])
     @comment = Comment.new
@@ -36,7 +35,6 @@ class PinsController < ApplicationController
     @user = User.find_by(id: params[:id])
   end
 
-  # POST /pins
   # POST /pins.json
   def create
     @pin = Pin.new(pin_params)
@@ -59,7 +57,6 @@ class PinsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /pins/1
   # PATCH/PUT /pins/1.json
   def update
     respond_to do |format|
@@ -77,7 +74,6 @@ class PinsController < ApplicationController
     end
   end
 
-  # DELETE /pins/1
   # DELETE /pins/1.json
   def destroy
     @pin.destroy
@@ -91,7 +87,6 @@ class PinsController < ApplicationController
     @pin.upvote_by(current_user)
     redirect_to :back
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

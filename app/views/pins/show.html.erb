@@ -1,29 +1,32 @@
 <p id="notice"><%= notice %></p>
-<div id="show">
-  <%= render partial: 'logged_in', locals: {pin: @pin} %>
-  <div id="title">
-    <%= @pin.title %>
-  </div>
-  <div id="descrip">
-    <% if @pin.link%>
-    <%= link_to "#{@pin.link}", "#{@pin.link}" %>
-    <% end %>
-    </br>
-    <%= @pin.description %>
-  </div>
-  <div class="container">
-    <div class="image">
-      <%= link_to (image_tag @pin.image.url), @pin %>
-    </div>
-  </div>
-</div><br><br><br><br><br><br>
+<div class="row">
+  <div class="col-lg-12">
+    <div id="show">
+      <%= render partial: 'logged_in', locals: {pin: @pin} %>
+      <div id="title">
+        <%= @pin.title %>
+      </div>
+      <div id="descrip">
+        <% if @pin.link%>
+        <%= link_to "#{@pin.link}", "#{@pin.link}" %>
+        <% end %>
+        </br>
+        <%= @pin.description %>
+      </div>
+      <div class="container">
+        <div class="image">
+          <%= link_to (image_tag @pin.image.url), @pin %>
+        </div>
+      </div>
+</div></div></div><br><br><br><br><br>
 
-<div class= "form container">
+<div class="row"> <div class= "form container">
+  <div class="col-lg-12">
   <% if !current_user.nil? %>
-    <%= render partial: 'comments/form', locals: {pin: @pin} %>
+    <%= render partial: 'comments/form', locals: {pin: @pin, comments: @pin.comments} %>
     <% end %>
   <center>
-  </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div><br><br><br><br><br><br><br>
 
 <ul id="comments">
     
@@ -31,7 +34,7 @@
   <h2><%= comment.title %></h2>
   <p><%= comment.content %> <p>
 <% end %>
-</ul>
+</ul></div></div>
 
 <br><br><br><br><br>
 
@@ -49,7 +52,7 @@
           const title = data.title 
           $('#comments').append(`<h2> ${title} </h2>`)
           $('#comments').append(`<p> ${content} </p>`)
-          debugger 
+
         }
       })
     })

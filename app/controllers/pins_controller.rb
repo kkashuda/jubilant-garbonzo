@@ -14,10 +14,7 @@ class PinsController < ApplicationController
   # GET /pins/1.json
   def show
     @pin = Pin.find(params[:id])
-    @comment = Comment.new
-    @comment.pin_id = @pin.id
-    @comments = @pin.comments 
-
+    @comments = @pin.comments
     respond_to do |f|
       f.html {render :show}
       f.json {render json: @pin}

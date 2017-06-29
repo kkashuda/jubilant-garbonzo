@@ -32,9 +32,10 @@ def create
   @comment = Comment.create(:title => params[:comment][:title], :content => params[:comment][:content], :pin_id => params[:pin_id])
   @comment.pin_id = params[:pin_id]
   render json: @comment, status: 201
-end 
+  end 
 
-private 
+  private 
+
   def comment_params
   	params.require(:comment).permit(:content, :title, :id, :username, :pin_id)
   end 

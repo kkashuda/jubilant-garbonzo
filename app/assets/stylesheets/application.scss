@@ -16,8 +16,10 @@
 
  */
 
- @import "bootstrap";
- @import "font-awesome";
+
+@import "bootstrap";
+@import "font-awesome";
+
 
 
  body {
@@ -177,6 +179,7 @@ button {
 .image img {
     width: 100%;
     height: auto;
+    display: block;
 }
 
 .container {

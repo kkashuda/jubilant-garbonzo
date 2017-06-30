@@ -16,14 +16,19 @@
       <%= link_to (image_tag @pin.image.url), @pin %>
     </div>
   </div>
-</div><br><br><br><br><br><br>
+</div>
+
+<br><br><br><br><br><br>
 
 <div class= "form container">
   <% if !current_user.nil? %>
     <%= render partial: 'comments/form', locals: {pin: @pin} %>
     <% end %>
   <center>
-  </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <ul id="comments">
 

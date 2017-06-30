@@ -25,13 +25,6 @@
   <center>
   </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-  <div class="load-more-container">
-  
-  <%= link_to "Load More", pin_comments_path, class: "load-more" %>
-</div>
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 <ul id="comments">
 
 
@@ -92,6 +85,7 @@ that.reset();
 <script type="text/javascript" charset="utf-8">
     $(function() {
       $(".js-more").on("click", function() {
+        $('.js-more').hide();
         var id = $(this).data("id");
         $.get("/pins/" + id + ".json", function(data) {
             let comments = data["comments"];
@@ -104,15 +98,8 @@ that.reset();
   });
 });
 
-       </script>
-
-
-
-<script type="text/javascript" charset="utf-8">
-  $(document).ready(function() {
-    $('')
-  })
 </script>
+
 
 
 

@@ -5,10 +5,6 @@ class UsersController < ApplicationController
     @username = User.username(current_user.email) 
   end 
 
-  def show 
-  end 
-  
-  
   private 
   def user_params 
   	params.require(:user).permit(:id)

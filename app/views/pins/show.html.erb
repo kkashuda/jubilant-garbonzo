@@ -25,6 +25,13 @@
   <center>
   </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+  <div class="load-more-container">
+  
+  <%= link_to "Load More", pin_comments_path, class: "load-more" %>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 <ul id="comments">
 
 
@@ -83,8 +90,6 @@ that.reset();
 
 
 <script type="text/javascript" charset="utf-8">
-
-
     $(function() {
       $(".js-more").on("click", function() {
         var id = $(this).data("id");
@@ -92,7 +97,6 @@ that.reset();
             let comments = data["comments"];
             let cHTML = ``
             comments.forEach(function(comment) {
-
               cHTML += toHTML(comment)
             })
             $('#comments').prepend(cHTML)
@@ -101,6 +105,14 @@ that.reset();
 });
 
        </script>
+
+
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('')
+  })
+</script>
 
 
 

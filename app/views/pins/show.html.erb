@@ -29,7 +29,7 @@
     
 <% @pin.comments.each do |comment| %>
   <h2><%= comment.title %></h2>
-  <p><%= comment.content %> <p>
+ <center> <p><%= comment.content %> <p> <hr> </center>
 <% end %>
 </ul>
 
@@ -39,6 +39,7 @@
     $("#new_comment").on("submit", function(e) {
       event.preventDefault();
       var values = $(this).serialize();
+      var that = this;
       $.ajax({
         url: this.action,
         data: $(this).serialize(),
@@ -52,12 +53,15 @@
           let newComment = new Comment(data.content, data.title)
           let commentHTML = newComment.formatComment()
           $('#comments').append(commentHTML)
+          $('#new_comment input:submit').prop('disabled',false);
+
+that.reset();
         }
       })
     })
 
       Comment.prototype.formatComment = function() {
-      return `<h2> ${this.title} </h2> <p> ${this.content} </p>`
+      return `<h2> ${this.title} </h2> <center> <p> ${this.content} </p> </center><hr>`
     }
 
     function Comment(content, title) {

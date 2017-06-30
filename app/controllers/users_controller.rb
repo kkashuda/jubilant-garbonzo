@@ -6,14 +6,12 @@ class UsersController < ApplicationController
   end 
 
   def show 
-  	binding.pry
   end 
   
   
   private 
   def user_params 
-
+  	params.require(:user).permit(:id)
   end 
-
 
 end

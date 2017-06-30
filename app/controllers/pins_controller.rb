@@ -23,7 +23,6 @@ class PinsController < ApplicationController
       end    
   end
 
-
   # GET /pins/new
   def new
     @user = current_user
@@ -98,7 +97,6 @@ class PinsController < ApplicationController
       @category_options = Category.options 
     end 
     
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def pin_params
       params.require(:pin).permit(:title, :description, :image, :category, :link, category_attributes: [:name])

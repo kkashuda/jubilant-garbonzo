@@ -1,3 +1,4 @@
+require 'pry'
 class CommentsController < ApplicationController
 	 before_action :authenticate_user!, except: [:index, :show]
    before_action :set_pin 
@@ -13,6 +14,7 @@ end
 
 def create
   @comment = Comment.create(:title => params[:comment][:title], :content => params[:comment][:content], :pin_id => params[:pin_id], :username => User.username(current_user.email))
+  @comment.created_at = @comment.created_at.to_formatted_s(:short)
   @comment.pin_id = params[:pin_id]
   render json: @comment, status: 201  
 end 

@@ -26,12 +26,16 @@
   </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <ul id="comments">
-    
+
+
 <% @pin.comments.each do |comment| %>
-  <h6><i><%= comment.username %></h6></i>
- <center> <p><%= comment.content %> <p> <hr> </center>
+  <h6><i><% comment.username %></h6></i>
+ <center> <p><% comment.content %> <p> <hr> </center>
 <% end %>
 </ul>
+
+  <center><button class="js-more" data-id="<%= @pin.id %>">Load more comments</button></center>
+
 
 <br><br><br><br><br>
 
@@ -52,7 +56,7 @@
           $('#comments').append(`<p> ${content} </p>`) */ 
           let newComment = new Comment(data.content, data.username)
           let commentHTML = newComment.formatComment()
-          $('#comments').append(commentHTML)
+          $('#comments').prepend(commentHTML)
           $('#new_comment input:submit').prop('disabled',false);
 
 that.reset();
@@ -69,9 +73,34 @@ that.reset();
       this.username = username  
     }
 
+    function toHTML(comment) {
+      return `<h5> ${comment.username} </h5> <center> <p> ${comment.content} </p> </center><hr>`
+
+    }
+
   
 </script>
 
+
+<script type="text/javascript" charset="utf-8">
+
+
+    $(function() {
+      $(".js-more").on("click", function() {
+        var id = $(this).data("id");
+        $.get("/pins/" + id + ".json", function(data) {
+            let comments = data["comments"];
+            let cHTML = ``
+            comments.forEach(function(comment) {
+
+              cHTML += toHTML(comment)
+            })
+            $('#comments').prepend(cHTML)
+        });
+  });
+});
+
+       </script>
 
 
 

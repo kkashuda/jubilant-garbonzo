@@ -17,6 +17,7 @@
               <%= link_to "Account", edit_user_registration_path  %> -
               <%= link_to "Sign Out", destroy_user_session_path, method: :delete %> 
             </h5>
+            <h5 id="my_pins"><%= link_to "My Pins", :onclick => '$("my-pins").click()' %></h5>
             <h6>Signed in as: <%= User.username(current_user.email) %></h6>
           <% else %>
             <h4>  

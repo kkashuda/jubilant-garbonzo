@@ -10,5 +10,11 @@
   <body>
     <%= render 'layouts/header' %>
     <%= yield %>
+
+    <script>
+      $('#my-pins').click(function(e) {
+        e.preventDefault(); 
+      })
+    </script>
   </body>
 </html>

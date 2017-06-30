@@ -13,10 +13,7 @@ class PinsController < ApplicationController
   # GET /pins/1
   def show
     @pin = Pin.find(params[:id])
-    @comment = Comment.new
-    @comment.pin_id = @pin.id
-    @comments = @pin.comments 
-
+    @comment = Comment.new # nested resource  
     respond_to do |f|
       f.html {render :show}
       f.json {render json: @pin}
@@ -88,7 +85,6 @@ class PinsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_pin
       @pin = Pin.find(params[:id])
     end

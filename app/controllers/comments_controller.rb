@@ -1,3 +1,4 @@
+require 'pry'
 class CommentsController < ApplicationController
 	 before_action :authenticate_user!, except: [:index, :show]
    before_action :set_pin 
@@ -5,6 +6,8 @@ class CommentsController < ApplicationController
 
 def index 
 	@comments = @pin.comments
+  @comments.limit(5)
+  binding.pry
   respond_to do |format|
     format.html {render 'index.html', :layout => false}
     format.json {render 'index.js', :layout => false }
@@ -31,7 +34,7 @@ end
 def create
   @comment = Comment.create(:title => params[:comment][:title], :content => params[:comment][:content], :pin_id => params[:pin_id], :username => User.username(current_user.email))
   @comment.pin_id = params[:pin_id]
-  render json: @comment, status: 201
+  render json: @comment, status: 201  
 end 
 
 private 

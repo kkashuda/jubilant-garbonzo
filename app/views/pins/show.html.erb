@@ -27,13 +27,6 @@
 
 <ul id="comments">
 
-
-<% @pin.comments.each do |comment| %>
-  <h6><i><% comment.username %></h6></i>
- <center> <p><% comment.content %> <p> <hr> </center>
-<% end %>
-</ul>
-
   <center><button class="js-more" data-id="<%= @pin.id %>">Load more comments</button></center>
 
 
@@ -43,7 +36,7 @@
     $("#new_comment").on("submit", function(e) {
       event.preventDefault();
       var values = $(this).serialize();
-      var that = this;
+      let form = this; 
       $.ajax({
         url: this.action,
         data: $(this).serialize(),
@@ -58,8 +51,7 @@
           let commentHTML = newComment.formatComment()
           $('#comments').prepend(commentHTML)
           $('#new_comment input:submit').prop('disabled',false);
-
-that.reset();
+          form.reset();
         }
       })
     })

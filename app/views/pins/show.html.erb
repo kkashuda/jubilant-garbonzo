@@ -28,7 +28,7 @@
 <ul id="comments">
     
 <% @pin.comments.each do |comment| %>
-  <h2><%= comment.title %></h2>
+  <h6><i><%= comment.username %></h6></i>
  <center> <p><%= comment.content %> <p> <hr> </center>
 <% end %>
 </ul>
@@ -47,10 +47,10 @@
         success: function(data) {
           console.log(data)
           const content = data.content 
-          const title = data.title 
+          const username = data.username
          /* $('#comments').append(`<h2> ${title} </h2>`)
           $('#comments').append(`<p> ${content} </p>`) */ 
-          let newComment = new Comment(data.content, data.title)
+          let newComment = new Comment(data.content, data.username)
           let commentHTML = newComment.formatComment()
           $('#comments').append(commentHTML)
           $('#new_comment input:submit').prop('disabled',false);
@@ -61,12 +61,12 @@ that.reset();
     })
 
       Comment.prototype.formatComment = function() {
-      return `<h2> ${this.title} </h2> <center> <p> ${this.content} </p> </center><hr>`
+      return `<h5> ${this.username} </h5> <center> <p> ${this.content} </p> </center><hr>`
     }
 
-    function Comment(content, title) {
+    function Comment(content, username) {
       this.content = content
-      this.title = title  
+      this.username = username  
     }
 
   

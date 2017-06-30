@@ -29,7 +29,7 @@ def new
 end 
 
 def create
-  @comment = Comment.create(:title => params[:comment][:title], :content => params[:comment][:content], :pin_id => params[:pin_id])
+  @comment = Comment.create(:title => params[:comment][:title], :content => params[:comment][:content], :pin_id => params[:pin_id], :username => User.username(current_user.email))
   @comment.pin_id = params[:pin_id]
   render json: @comment, status: 201
 end 

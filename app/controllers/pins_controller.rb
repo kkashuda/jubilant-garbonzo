@@ -79,6 +79,7 @@ class PinsController < ApplicationController
     end
   end
 
+
   def upvote
     @pin.upvote_by(current_user)
     redirect_to :back

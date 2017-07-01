@@ -1,16 +1,16 @@
 <p id="notice"><%= notice %></p>
 <div id="show">
   <a href="#" class="js-next" data-id="<%=@pin.id%>">Next...</a>
-  <%= render partial: 'logged_in', locals: {pin: @pin} %>
+  <%# render partial: 'logged_in', locals: {pin: @pin} %>
   <div id="title">
-    <h2 class="title"> <%= @pin.title %> </h2>
+    <p class="new-title"> <%= @pin.title %> </p>
   </div>
   <div id="descrip">
     <% if @pin.link%>
-    <p class="link"> <%= link_to "#{@pin.link}", "#{@pin.link}" %> </p>
+    <%= link_to "#{@pin.link}", "#{@pin.link}" %>
     <% end %>
     </br>
-   <p class="description"> <%= @pin.description %> </p>
+    <p class="new-descrip"> <%= @pin.description %> </p>
   </div>
   <div class="container">
     <div class="image">
@@ -100,15 +100,16 @@
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
+
   $(".js-next").on("click", function() {
+    event.preventDefault();
     var nextId = parseInt($(".js-next").attr("data-id")) + 1;
-    debugger
     $.get("/pins/" + nextId + ".json", function(data) {
-      debugger
-     $(".title").text(data["title"]);
-      $("#descrip").text(data["description"]);
+      var pin = data;
+      $(".new-title").text(pin["title"]);
+      $(".new-descrip").text(pin["description"]);
       // re-set the id to current on the link
-      $("#js-next").attr("data-id", data["id"]);
+      $(".js-next").attr("data-id", pin["id"]);
     });
   });
 });

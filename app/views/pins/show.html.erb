@@ -7,14 +7,14 @@
   </div>
   <div id="descrip">
     <% if @pin.link%>
-    <%= link_to "#{@pin.link}", "#{@pin.link}" %>
+   <p class= "new-link"> <%= link_to "#{@pin.link}", "#{@pin.link}" %> </p>
     <% end %>
     </br>
     <p class="new-descrip"> <%= @pin.description %> </p>
   </div>
   <div class="container">
     <div class="image">
-      <%= link_to (image_tag @pin.image.url), @pin %>
+     <p class="new-image"> <%= link_to (image_tag @pin.image.url), @pin %> </p>
     </div>
   </div>
 </div>
@@ -31,7 +31,7 @@
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-<ul id="comments">
+<ul class="append-comments" id="comments">
 
   <center><button class="js-more" data-id="<%= @pin.id %>">Load comments</button></center>
 
@@ -108,8 +108,11 @@ $(function () {
       var pin = data;
       $(".new-title").text(pin["title"]);
       $(".new-descrip").text(pin["description"]);
+      $(".new-link").text(pin["link"]);
       // re-set the id to current on the link
       $(".js-next").attr("data-id", pin["id"]);
+      $(".js-more").attr("data-id", pin["id"]);
+
     });
   });
 });

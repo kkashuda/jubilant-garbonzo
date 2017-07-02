@@ -8,9 +8,9 @@
     <% end %> 
     
     </br></br>
+       <a href="#" class="js-next" data-id="<%=@pin.id%>">Next...</a>
 
     <% if current_user.pins.include? @pin%> 
-       <a href="#" class="js-next" data-id="<%=@pin.id%>">Next...</a>
 
       <%= link_to "Edit", edit_user_pin_path(current_user), class: "btn btn-default" %>
       <%= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary" %>
@@ -20,16 +20,12 @@
     <p class="new-title"> <%= @pin.title %> </p>
   </div>
   <div id="descrip">
-    <% if @pin.link%>
-   <p class= "new-link"> <%= link_to "#{@pin.link}", "#{@pin.link}" %> </p>
-    <% end %>
-    </br>
     <p class="new-descrip"> <%= @pin.description %> </p>
   </div>
   <div class="container">
     <div class="image">
 
-     <p class="new-image"> <%= link_to (image_tag @pin.image.url), @pin %> 
+     <p class="new-image"> <%# link_to (image_tag @pin.image.url), @pin %> 
 
 
      </p>
@@ -37,7 +33,7 @@
   </div>
 </div>
 
-<br><br><br><br><br><br>
+<br><br><br>
 
 <div class= "form container">
   <% if !current_user.nil? && current_user.pins.exclude?(@pin) %>
@@ -47,7 +43,7 @@
   </div>
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
 <ul class="append-comments" id="comments">
 
   <center><button class="js-more" data-id="<%= @pin.id %>">Load comments</button></center>
@@ -125,7 +121,6 @@ $(function () {
       var pin = data;
       $(".new-title").text(pin["title"]);
       $(".new-descrip").text(pin["description"]);
-      $(".new-link").text(pin["link"]);
       // re-set the id to current on the link
       let comments = pin["comments"];
       let cHTML = ``

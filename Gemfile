@@ -48,6 +48,9 @@ gem "paperclip", "~> 5.0.0.beta1"
 # for transition effects 
 gem 'masonry-rails'
 
+gem 'imagesLoaded_rails'
+
+
 # bootstrap gem 
 gem 'bootstrap', '~> 4.0.0.alpha3'
 

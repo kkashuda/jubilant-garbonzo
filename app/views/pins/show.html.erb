@@ -15,19 +15,18 @@
       <%= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary" %>
     <% end %> 
 <% end %>
+  
   <div id="title">
     <p class="new-title"> <%= @pin.title %> </p>
   </div>
+  
   <div id="descrip">
     <p class="new-descrip"> <%= @pin.description %> </p>
   </div>
+  
   <div class="container">
     <div class="image">
-
-     <p class="new-image"> <%# link_to (image_tag @pin.image.url), @pin %> 
-
-
-     </p>
+     <p class="new-image"> <%# link_to (image_tag @pin.image.url), @pin %></p>
     </div>
   </div>
 </div>
@@ -111,69 +110,66 @@
 </script>
 
 <script type="text/javascript" charset="utf-8">
-var id = parseInt($(".js-next").attr("data-id"))
-$(function () {
-  $(".js-next").on("click", function() {
-    event.preventDefault();
-    var nextId = id + 1;
-    console.log(nextId);
-    $.get("/pins/" + nextId + ".json", function(data) {
-      var pin = data;
-      $(".new-title").text(pin["title"]);
-      $(".new-descrip").text(pin["description"]);
-      // re-set the id to current on the link
-      let comments = pin["comments"];
-      let cHTML = ``
-      comments.forEach(function(comment) {
-              cHTML += toHTML(comment)
-      })
-      $('#comments').empty();
-      $('#comments').prepend(cHTML)
-      $('.image').empty();
-      $('.image').val(pin.image)
-      $(".js-next").attr("data-id", pin["id"]);
-      $(".js-more").attr("data-id", pin["id"]);
+  let id = parseInt($(".js-next").attr("data-id"))
+  $(function () {
+    $(".js-next").on("click", function() {
+      event.preventDefault();
+      var nextId = id + 1;
+      id = nextId;
+      console.log(nextId);
+      $.get("/pins/" + nextId + ".json", function(data) {
+        var pin = data;
+        $(".new-title").text(pin["title"]);
+        $(".new-descrip").text(pin["description"]);
+        // re-set the id to current on the link
+        let comments = pin["comments"];
+        let cHTML = ``
+        comments.forEach(function(comment) {
+                cHTML += toHTML(comment)
+        })
+        $('#comments').empty();
+        $('#comments').prepend(cHTML)
+        $('.image').empty();
+        $('.image').val(pin.image)
+        $(".js-next").attr("data-id", pin["id"]);
+        $(".js-more").attr("data-id", pin["id"]);
 
+      });
     });
   });
-});
 
-$(function () {
-  $(".js-previous").on("click", function() {
-    event.preventDefault();
-     console.log(parseInt($(".js-previous").attr("data-id")));
-    if (parseInt($(".js-previous").attr("data-id")) > 0) {
-    var nextId = parseInt($(".js-previous").attr("data-id"));
-   
-  }
-    $.get("/pins/" + nextId + ".json", function(data) {
-      var pin = data;
-      $(".new-title").text(pin["title"]);
-      $(".new-descrip").text(pin["description"]);
-      // re-set the id to current on the link
-      let comments = pin["comments"];
-      let cHTML = ``
-      comments.forEach(function(comment) {
-              cHTML += toHTML(comment)
-      })
-      $('#comments').empty();
-      $('#comments').prepend(cHTML)
-      $('.image').empty();
-      $('.image').val(pin.image)
-      $(".js-previous").attr("data-id", pin["id"]);
-      $(".js-more").attr("data-id", pin["id"]);
+  $(function () {
+    $(".js-previous").on("click", function() {
+      event.preventDefault();
+       console.log(parseInt($(".js-previous").attr("data-id")));
+      if (parseInt($(".js-previous").attr("data-id")) > 0) {
+      var nextId = id - 1;
+      id = nextId;
+     
+    }
+      $.get("/pins/" + nextId + ".json", function(data) {
+        var pin = data;
+        $(".new-title").text(pin["title"]);
+        $(".new-descrip").text(pin["description"]);
+        // re-set the id to current on the link
+        let comments = pin["comments"];
+        let cHTML = ``
+        comments.forEach(function(comment) {
+                cHTML += toHTML(comment)
+        })
+        $('#comments').empty();
+        $('#comments').prepend(cHTML)
+        $('.image').empty();
+        $('.image').val(pin.image)
+        $(".js-previous").attr("data-id", pin["id"]);
+        $(".js-more").attr("data-id", pin["id"]);
 
+      });
     });
   });
-});
-
 </script>
 
 
-<script type="text/javascript" charset="utf-8">
-
-
-</script>
 
 
 

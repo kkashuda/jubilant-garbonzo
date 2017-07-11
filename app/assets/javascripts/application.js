@@ -9,11 +9,11 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//= require bootstrap
 //= require jquery
+//= require tether
 //= require jquery_ujs
+//= require bootstrap
 //= require imagesloaded
-
 //= require masonry/jquery.masonry
 //= require turbolinks
 //= require_tree .

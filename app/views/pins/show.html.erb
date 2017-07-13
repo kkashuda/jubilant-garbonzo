@@ -8,8 +8,11 @@
     <% end %> 
     
     </br></br>
-       <a href="#" class="js-next" data-id="<%=@pin.id%>">Next...</a>
-       <a href="#" class="js-previous" data-id="<%=@pin.id%>">Previous...</a>
+     
+   
+      <a href="#" style="font-size: 12px;" class="js-previous" data-id="<%=@pin.id%>">Previous Pin</a>
+
+       <a href="#" style="padding-left: 520px; font-size: 12px;" class="js-next" data-id="<%=@pin.id%>">Next Pin</a><br><br>
     <% if current_user.pins.include? @pin%> 
       <%= link_to "Edit", edit_user_pin_path(current_user), class: "btn btn-default" %>
       <%= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary" %>
@@ -25,8 +28,8 @@
   </div>
   
   <div class="container">
-    <div class="image">
-     <p class="new-image"> <%# link_to (image_tag @pin.image.url), @pin %></p>
+    <div id="image">
+  <div class="new-image"> <% link_to (image_tag @pin.image.url), @pin %></div> 
     </div>
   </div>
 </div>
@@ -109,7 +112,7 @@
 </script>
 
 <script type="text/javascript" charset="utf-8">
-  let id = parseInt($(".js-next").attr("data-id"))
+  var id = parseInt($(".js-next").attr("data-id"))
   $(function () {
     $(".js-next").on("click", function() {
       event.preventDefault();
@@ -118,6 +121,7 @@
       console.log(nextId);
       $.get("/pins/" + nextId + ".json", function(data) {
         var pin = data;
+        //$(".new-image").html("<img src=" + pin["image"] +" />");
         $(".new-title").text(pin["title"]);
         $(".new-descrip").text(pin["description"]);
         // re-set the id to current on the link
@@ -148,6 +152,8 @@
     }
       $.get("/pins/" + nextId + ".json", function(data) {
         var pin = data;
+        var size = "width: 200px;";
+        //$(".new-image").html("<img src=" + pin["image"] + "style=" + size  + ">"+"</img>");
         $(".new-title").text(pin["title"]);
         $(".new-descrip").text(pin["description"]);
         // re-set the id to current on the link

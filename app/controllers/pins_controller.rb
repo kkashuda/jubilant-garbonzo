@@ -1,4 +1,3 @@
-require 'pry'
 class PinsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_pin, only: [:show, :edit, :update, :destroy, :upvote]
@@ -13,10 +12,7 @@ class PinsController < ApplicationController
   # GET /pins/1
   def show
     @pin = Pin.find(params[:id])
-    @comment = Comment.new
-    @comment.pin_id = @pin.id
-    @comments = @pin.comments 
-
+    @comment = Comment.new # nested resource  
     respond_to do |f|
       f.html {render :show}
       f.json {render json: @pin}
@@ -82,13 +78,13 @@ class PinsController < ApplicationController
     end
   end
 
+
   def upvote
     @pin.upvote_by(current_user)
     redirect_to :back
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_pin
       @pin = Pin.find(params[:id])
     end

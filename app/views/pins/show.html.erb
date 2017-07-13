@@ -1,45 +1,61 @@
 <p id="notice"><%= notice %></p>
 <div id="show">
-  <%= render partial: 'logged_in', locals: {pin: @pin} %>
+ <% if user_signed_in? %>
+    <%= link_to like_pin_path(@pin), method: :put, class: "btn btn-secondary" do %>
+      <span class="glyphicon glyphicon-heart"></span>
+      <i class="fa fa-heart"></i>
+      <%= @pin.get_upvotes.size %>
+    <% end %> 
+    
+    </br></br>
+     
+   
+      <a href="#" style="font-size: 12px;" class="js-previous" data-id="<%=@pin.id%>">Previous Pin</a>
+
+       <a href="#" style="padding-left: 520px; font-size: 12px;" class="js-next" data-id="<%=@pin.id%>">Next Pin</a><br><br>
+    <% if current_user.pins.include? @pin%> 
+      <%= link_to "Edit", edit_user_pin_path(current_user), class: "btn btn-default" %>
+      <%= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary" %>
+    <% end %> 
+<% end %>
+  
   <div id="title">
-    <%= @pin.title %>
+    <p class="new-title"> <%= @pin.title %> </p>
   </div>
+  
   <div id="descrip">
-    <% if @pin.link%>
-    <%= link_to "#{@pin.link}", "#{@pin.link}" %>
-    <% end %>
-    </br>
-    <%= @pin.description %>
+    <p class="new-descrip"> <%= @pin.description %> </p>
   </div>
+  
   <div class="container">
-    <div class="image">
-      <%= link_to (image_tag @pin.image.url), @pin %>
+    <div id="image">
+  <div class="new-image"> <% link_to (image_tag @pin.image.url), @pin %></div> 
     </div>
   </div>
-</div><br><br><br><br><br><br>
+</div>
+
+<br><br><br>
 
 <div class= "form container">
-  <% if !current_user.nil? %>
+  <% if !current_user.nil? && current_user.pins.exclude?(@pin) %>
     <%= render partial: 'comments/form', locals: {pin: @pin} %>
     <% end %>
   <center>
-  </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
 
-<ul id="comments">
-    
-<% @pin.comments.each do |comment| %>
-  <h6><i><%= comment.username %></h6></i>
- <center> <p><%= comment.content %> <p> <hr> </center>
-<% end %>
+
+<br><br><br><br><br><br><br><br>
+<ul class="append-comments" id="comments">
+  <center><button class="js-more" data-id="<%= @pin.id %>">Load comments</button></center>
 </ul>
-
 <br><br><br><br><br>
+
 
 <script type="text/javascript" charset="utf-8">
     $("#new_comment").on("submit", function(e) {
       event.preventDefault();
       var values = $(this).serialize();
-      var that = this;
+      let form = this; 
       $.ajax({
         url: this.action,
         data: $(this).serialize(),
@@ -52,10 +68,9 @@
           $('#comments').append(`<p> ${content} </p>`) */ 
           let newComment = new Comment(data.content, data.username)
           let commentHTML = newComment.formatComment()
-          $('#comments').append(commentHTML)
+          $('#comments').prepend(commentHTML)
           $('#new_comment input:submit').prop('disabled',false);
-
-that.reset();
+          form.reset();
         }
       })
     })
@@ -66,11 +81,102 @@ that.reset();
 
     function Comment(content, username) {
       this.content = content
-      this.username = username  
+      this.username = username 
+    }
+
+    function toHTML(comment) {
+      return `<h5> ${comment.username} </h5> <center> <p> ${comment.content} </p> </center><hr>`
+
     }
 
   
 </script>
+
+
+<script type="text/javascript" charset="utf-8">
+    $(function() {
+      $(".js-more").on("click", function() {
+        $('.js-more').hide();
+        var id = $(this).data("id");
+        $.get("/pins/" + id + ".json", function(data) {
+            let comments = data["comments"];
+            let cHTML = ``
+            comments.forEach(function(comment) {
+              cHTML += toHTML(comment)
+            })
+            $('#comments').prepend(cHTML)
+        });
+  });
+});
+
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var id = parseInt($(".js-next").attr("data-id"))
+  $(function () {
+    $(".js-next").on("click", function() {
+      event.preventDefault();
+      var nextId = id + 1;
+      id = nextId;
+      console.log(nextId);
+      $.get("/pins/" + nextId + ".json", function(data) {
+        var pin = data;
+        //$(".new-image").html("<img src=" + pin["image"] +" />");
+        $(".new-title").text(pin["title"]);
+        $(".new-descrip").text(pin["description"]);
+        // re-set the id to current on the link
+        let comments = pin["comments"];
+        let cHTML = ``
+        comments.forEach(function(comment) {
+                cHTML += toHTML(comment)
+        })
+        $('#comments').empty();
+        $('#comments').prepend(cHTML)
+        $('.image').empty();
+        $('.image').val(pin.image)
+        $(".js-next").attr("data-id", pin["id"]);
+        $(".js-more").attr("data-id", pin["id"]);
+
+      });
+    });
+  });
+
+  $(function () {
+    $(".js-previous").on("click", function() {
+      event.preventDefault();
+       console.log(parseInt($(".js-previous").attr("data-id")));
+      if (parseInt($(".js-previous").attr("data-id")) > 0) {
+      var nextId = id - 1;
+      id = nextId;
+     
+    }
+      $.get("/pins/" + nextId + ".json", function(data) {
+        var pin = data;
+        var size = "width: 200px;";
+        //$(".new-image").html("<img src=" + pin["image"] + "style=" + size  + ">"+"</img>");
+        $(".new-title").text(pin["title"]);
+        $(".new-descrip").text(pin["description"]);
+        // re-set the id to current on the link
+        let comments = pin["comments"];
+        let cHTML = ``
+        comments.forEach(function(comment) {
+                cHTML += toHTML(comment)
+        })
+        $('#comments').empty();
+        $('#comments').prepend(cHTML)
+        $('.image').empty();
+        $('.image').val(pin.image)
+        $(".js-previous").attr("data-id", pin["id"]);
+        $(".js-more").attr("data-id", pin["id"]);
+
+      });
+    });
+  });
+</script>
+
+
+
+
 
 
 

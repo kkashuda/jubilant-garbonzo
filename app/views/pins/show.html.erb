@@ -1,23 +1,25 @@
 <p id="notice"><%= notice %></p>
 <div id="show">
- <% if user_signed_in? %>
-    <%= link_to like_pin_path(@pin), method: :put, class: "btn btn-secondary" do %>
-      <span class="glyphicon glyphicon-heart"></span>
-      <i class="fa fa-heart"></i>
-      <%= @pin.get_upvotes.size %>
-    <% end %> 
-    
-    </br></br>
+   <% if user_signed_in? %>
+      <%= link_to like_pin_path(@pin), method: :put, class: "btn btn-secondary" do %>
+        <span class="glyphicon glyphicon-heart"></span>
+        <i class="fa fa-heart"></i>
+        <%= @pin.get_upvotes.size %>
+      <% end %> 
+       
+      </br></br>
+       
      
-   
-      <a href="#" style="font-size: 12px;" class="js-previous" data-id="<%=@pin.id%>">Previous Pin</a>
+    <a href="#" style="font-size: 12px;" class="js-previous" data-id="<%=@pin.id%>">Previous Pin</a>
 
-       <a href="#" style="padding-left: 520px; font-size: 12px;" class="js-next" data-id="<%=@pin.id%>">Next Pin</a><br><br>
+    <a href="#" style="padding-left: 520px; font-size: 12px;" class="js-next" data-id="<%=@pin.id%>">Next Pin</a><br><br>
+      
+
     <% if current_user.pins.include? @pin%> 
       <%= link_to "Edit", edit_user_pin_path(current_user), class: "btn btn-default" %>
       <%= link_to "Delete", pin_path, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary" %>
     <% end %> 
-<% end %>
+  <% end %>
   
   <div id="title">
     <p class="new-title"> <%= @pin.title %> </p>
@@ -26,13 +28,6 @@
   <div id="descrip">
     <p class="new-descrip"> <%= @pin.description %> </p>
   </div>
-  
-  <div class="container">
-    <div id="image">
-  <div class="new-image"> <% link_to (image_tag @pin.image.url), @pin %></div> 
-    </div>
-  </div>
-</div>
 
 <br><br><br>
 
@@ -45,37 +40,42 @@
 
 
 <br><br><br><br><br><br><br><br>
+
 <ul class="append-comments" id="comments">
   <center><button class="js-more" data-id="<%= @pin.id %>">Load comments</button></center>
 </ul>
+
 <br><br><br><br><br>
 
-
 <script type="text/javascript" charset="utf-8">
-    $("#new_comment").on("submit", function(e) {
+  $(function() {
+    $("#new_comment").on("submit", function(event) {
       event.preventDefault();
       var values = $(this).serialize();
-      let form = this; 
-      $.ajax({
-        url: this.action,
-        data: $(this).serialize(),
-        method: 'POST',
-        success: function(data) {
-          console.log(data)
-          const content = data.content 
-          const username = data.username
-         /* $('#comments').append(`<h2> ${title} </h2>`)
-          $('#comments').append(`<p> ${content} </p>`) */ 
-          let newComment = new Comment(data.content, data.username)
-          let commentHTML = newComment.formatComment()
-          $('#comments').prepend(commentHTML)
-          $('#new_comment input:submit').prop('disabled',false);
-          form.reset();
-        }
-      })
+      createComment(values, this)
     })
 
-      Comment.prototype.formatComment = function() {
+    function createComment(values, element) {
+      var content = $('#comment_content')[0].value;
+      if (content !== "") {
+        $('#new_comment input:submit').prop('disabled',true);
+        $.ajax({
+          url: element.action,
+          data: values,
+          method: 'POST',
+          success: function(data) {
+            const { content, username } = data;
+            let newComment = new Comment(content, username)
+            let commentHTML = newComment.formatComment()
+            $('#comments').prepend(commentHTML)
+            $('#new_comment input:submit').prop('disabled',false);
+            element.reset();
+          }
+        })
+      }
+    }
+
+    Comment.prototype.formatComment = function() {
       return `<h5> ${this.username} </h5> <center> <p> ${this.content} </p> </center><hr>`
     }
 
@@ -85,11 +85,10 @@
     }
 
     function toHTML(comment) {
-      return `<h5> ${comment.username} </h5> <center> <p> ${comment.content} </p> </center><hr>`
-
+      return `<h5> ${comment.username} </h5> <center> <p> ${comment.content} </p> </center><hr>ajax
+      `
     }
-
-  
+  })
 </script>
 
 
@@ -113,6 +112,7 @@
 
 <script type="text/javascript" charset="utf-8">
   var id = parseInt($(".js-next").attr("data-id"))
+  
   $(function () {
     $(".js-next").on("click", function() {
       event.preventDefault();
@@ -153,7 +153,6 @@
       $.get("/pins/" + nextId + ".json", function(data) {
         var pin = data;
         var size = "width: 200px;";
-        //$(".new-image").html("<img src=" + pin["image"] + "style=" + size  + ">"+"</img>");
         $(".new-title").text(pin["title"]);
         $(".new-descrip").text(pin["description"]);
         // re-set the id to current on the link
@@ -162,6 +161,8 @@
         comments.forEach(function(comment) {
                 cHTML += toHTML(comment)
         })
+
+
         $('#comments').empty();
         $('#comments').prepend(cHTML)
         $('.image').empty();
